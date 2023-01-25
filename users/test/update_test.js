@@ -4,7 +4,7 @@ const User = require("../src/user");
 describe("Updating Records", () => {
   let joe;
   beforeEach(async () => {
-    joe = new User({ name: "Joe", count: 0 });
+    joe = new User({ name: "Joe", likes: 0 });
     await joe.save();
   });
 
@@ -64,8 +64,8 @@ describe("Updating Records", () => {
   });
 
   it("FInd all and update by incrementing by 10", async () => {
-    await User.updateMany({ name: "Joe" }, { $inc: { count: 10} });
+    await User.updateMany({ name: "Joe" }, { $inc: { likes: 10} });
     const user = await User.findOne({ name: "Joe" });
-    assert(user.count === 10);
+    assert(user.likes === 10);
   });
 });

@@ -11,7 +11,10 @@ const UserSchema = new Schema({
       message: "Name must be longer than 2 characters."
     },
   },
-  count: Number,
+  likes: {
+    type: Number,
+    default: 0,
+  },
   posts: [PostSchema]
 });
 
