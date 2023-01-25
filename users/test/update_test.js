@@ -4,7 +4,7 @@ const User = require("../src/user");
 describe("Updating Records", () => {
   let joe;
   beforeEach(async () => {
-    joe = new User({ name: "Joe", postCount: 0});
+    joe = new User({ name: "Joe", postCount: 0 });
     await joe.save();
   });
 
@@ -59,15 +59,13 @@ describe("Updating Records", () => {
   });
 
   it("Class can Find By ID and Update", async () => {
-    await User.findByIdAndUpdate( joe._id, { name: "Koh" });
+    await User.findByIdAndUpdate(joe._id, { name: "Koh" });
     await assertName();
   });
 
-  it("Can increment by 1", async()=>{
-      await User.updateMany({name:"Joe"}, { $inc: { postCount: 1}})
-     const user = await User.findOne({name: "Joe"});
-     assert(user.postCount === 1)
-
-  })
-
+  it("FInd all and update by incrementing by 10", async () => {
+    await User.updateMany({ name: "Joe" }, { $inc: { postCount: 10} });
+    const user = await User.findOne({ name: "Joe" });
+    assert(user.postCount === 10);
+  });
 });
