@@ -18,7 +18,6 @@ describe("Sub Documents", () => {
       name: "Joe",
       posts: [],
     });
-
     await joe.save();
 
     let user;
@@ -27,5 +26,21 @@ describe("Sub Documents", () => {
     await user.save();
     user = await User.findOne({name: "Joe"})
     assert(user.posts[0].title === "New Post")
+  });
+
+  // Special mongoose remove function
+  it("can remove existing subdocuments", async () => {
+    const joe = new User({
+      name: "Joe",
+      posts: [{ title: "post1" }],
+    });
+    await joe.save();
+
+    let user;
+    user = await User.findOne({name: "Joe"})
+    user.posts[0].remove();
+    await user.save();
+    user = await User.findOne({name: "Joe"})
+    assert(user.posts.length === 0)
   });
 });
